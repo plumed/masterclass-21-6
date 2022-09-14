@@ -1,0 +1,2 @@
+p: PCAVARS REFERENCE=pca-reference.pdb TYPE=OPTIMAL
+PRINT ARG=p.* FILE=colvar

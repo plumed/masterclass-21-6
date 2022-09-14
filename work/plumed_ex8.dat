@@ -1,0 +1,2 @@
+path: PATH REFERENCE=../data/alanine-path.pdb TYPE=OPTIMAL LAMBDA=15100.
+PRINT ARG=* FILE=colvar

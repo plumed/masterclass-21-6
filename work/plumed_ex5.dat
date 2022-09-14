@@ -1,0 +1,3 @@
+c7ax: RMSD REFERENCE=../data/C7ax.pdb TYPE=OPTIMAL 
+c7eq: RMSD REFERENCE=../data/C7eq.pdb TYPE=OPTIMAL 
+PRINT ARG=c7ax,c7eq FILE=colvar STRIDE=100

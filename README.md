@@ -898,7 +898,7 @@ are in the solid state from atoms that are in the liquid state.  The following i
 UNITS NATURAL
 coord: COORDINATIONNUMBER __FILL__=1-5184 __FILL__={CUBIC D_0=1.2 D_MAX=1.5} 
 cub: FCCUBIC __FILL__=1-5184 __FILL__={CUBIC D_0=1.2 D_MAX=1.5} ALPHA=27
-fcub: MTRANSFORM_MORE DATA=__FILL__ __FILL__={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
+fcub: MTRANSFORM_MORE DATA=__FILL__ SWITCH={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
 DUMPMULTICOLVAR __FILL__=coord STRIDE=1000 __FILL_=coord.xyz
 DUMPMULTICOLVAR __FILL__=cub STRIDE=1000 __FILL__=cub.xyz 
 DUMPMULTICOLVAR __FILL__=fcub STRIDE=1000 __FILL__=fcub.xyz
@@ -1003,7 +1003,7 @@ Once we have identified an order parameter we can analyse the distribution of va
 UNITS NATURAL
 coord: COORDINATIONNUMBER __FILL__=1-5184 __FILL__={CUBIC D_0=1.2 D_MAX=1.5} 
 cub: FCCUBIC __FILL__=1-5184 __FILL__={CUBIC D_0=1.2 D_MAX=1.5} ALPHA=27
-fcub: MTRANSFORM_MORE DATA=__FILL__ __FILL__={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
+fcub: MTRANSFORM_MORE DATA=__FILL__ SWITCH={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
 coord_histo: HISTOGRAM __FILL__=coord STRIDE=10 __FILL__=2 GRID_MAX=15 __FILL__=100 __FILL__=DISCRETE
 cub_histo: HISTOGRAM __FILL__=cub STRIDE=10 GRID_MIN=-1 __FILL__=1 __FILL__=100 __FILL__=DISCRETE
 fcub_histo: HISTOGRAM __FILL__=fcub STRIDE=10 __FILL__=0 GRID_MAX=1 __FILL__=100 __FILL__=DISCRETE

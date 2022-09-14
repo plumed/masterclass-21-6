@@ -1007,9 +1007,9 @@ fcub: MTRANSFORM_MORE DATA=__FILL__ SWITCH={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
 coord_histo: HISTOGRAM __FILL__=coord STRIDE=10 __FILL__=2 GRID_MAX=15 __FILL__=100 __FILL__=DISCRETE
 cub_histo: HISTOGRAM __FILL__=cub STRIDE=10 GRID_MIN=-1 __FILL__=1 __FILL__=100 __FILL__=DISCRETE
 fcub_histo: HISTOGRAM __FILL__=fcub STRIDE=10 __FILL__=0 GRID_MAX=1 __FILL__=100 __FILL__=DISCRETE
-__FILL__ __FILL__=coord_histo FILE=coord_histo.dat
-__FILL__ __FILL__=cub_histo FILE=cub_histo.dat
-__FILL__ __FILL__=fcub_histo FILE=fcub_histo.dat
+DUMPGRID __FILL__=coord_histo FILE=coord_histo.dat
+DUMPGRID __FILL__=cub_histo FILE=cub_histo.dat
+DUMPGRID __FILL__=fcub_histo FILE=fcub_histo.dat
 ```
 
 The resulting distributions of order parameter values should look like this:

@@ -1,6 +1,6 @@
 # This reads in the template pdb file and thus allows us to use the @nonhydrogens
 # special group later in the input
-MOLINFO STRUCTURE=../data/beta-hairpin.pdb MOLTYPE=protein
+MOLINFO STRUCTURE=../data/bhp.pdb MOLTYPE=protein
 
 # This stores the positions of all the nonhydrogen atoms for later analysis
 cc: COLLECT_FRAMES ATOMS=@nonhydrogens 

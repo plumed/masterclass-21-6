@@ -1,2 +1,2 @@
-p: PCAVARS REFERENCE=../work/pca2-reference.pdb TYPE=OPTIMAL
+p: PCAVARS REFERENCE=../data/pca2-reference.pdb TYPE=OPTIMAL
 PRINT ARG=p.* FILE=colvar

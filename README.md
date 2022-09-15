@@ -146,7 +146,7 @@ plt.show()
 ![The value of the phi angle as a function of time.](figures/masterclass-21-6-phi-time.png)
 
 __Your task in this first exercise is to modify the code above and to produce a figure similar to the one shown below.__  This figure 
-shows all the values of the \f$\phi\f$ and \f$\psi\f$ angles in the second residue of the protein during the simulation.
+shows all the values of the $\phi$ and $\psi$ angles in the second residue of the protein during the simulation.
 
 ![A plot showing phi against psi for the second residue of the protein.](figures/masterclass-21-6-phi-psi.png)
 
@@ -1022,7 +1022,7 @@ particles, however, is to proceed as follows:
 
 - Run simulations of the solid and liquid under the same thermodynamic conditions.
 - Calculate the average values per atom value of the order parameter in these simulations of the solid $\phi_s$ and liquid $\phi_l$.
-- Calculate the number of solid \f$n_l\f$ and liquid atoms \f$n_l\f$ by solving the following pair of simultaneous equations $N=n_s + n_l$ and $\Phi = n_s \phi_s + n_l \phi_l$, where $N$ is the total number of atoms. $\Phi$, meanwhile, is given by:
+- Calculate the number of solid $n_l$ and liquid atoms $n_l$ by solving the following pair of simultaneous equations $N=n_s + n_l$ and $\Phi = n_s \phi_s + n_l \phi_l$, where $N$ is the total number of atoms. $\Phi$, meanwhile, is given by:
 
 $$
 \Phi = \sum_{i=1}^N \phi_i

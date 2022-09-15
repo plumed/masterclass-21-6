@@ -1,11 +1,11 @@
 # This reads in the template pdb file and thus allows us to use the @nonhydrogens
 # special group later in the input
-MOLINFO STRUCTURE=__FILL__ MOLTYPE=protein
+MOLINFO STRUCTURE=../data/beta-hairpin.pdb MOLTYPE=protein
 
 # This stores the positions of all the nonhydrogen atoms for later analysis
-cc: COLLECT_FRAMES __FILL__=@nonhydrogens 
+cc: COLLECT_FRAMES ATOMS=@nonhydrogens 
 # This should output the atomic positions for the frames that were collected and analyzed using MDS
-OUTPUT_ANALYSIS_DATA_TO_PDB USE_OUTPUT_DATA_FROM=__FILL__ FILE=traj.pdb
+OUTPUT_ANALYSIS_DATA_TO_PDB USE_OUTPUT_DATA_FROM=cc FILE=traj.pdb
 
 # The following commands compute all the Ramachandran angles of the protein for you
 r2-phi: TORSION ATOMS=@phi-2

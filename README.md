@@ -143,7 +143,6 @@ plt.ylabel("Torsion angle / radians")
 plt.show()
 ```
 
-\image html masterclass-21-6-phi-time.png 
 ![The value of the phi angle as a function of time.](figures/masterclass-21-6-phi-time.png)
 
 __Your task in this first exercise is to modify the code above and to produce a figure similar to the one shown below.__  This figure 
@@ -654,7 +653,7 @@ unbiased_data = np.loadtxt('../Unbiased_MD/colvar')
 
 I ran simulations at 300K and 1000K using the above script.  When the simulations completed, I was able to construct the figures below:
 
-![The black points are the configurations visited in MD simulations at 300K (left) and 1000K (right).  The top panel shows these trajectories in the Ramachandran plane.  In the lower panel, I have projected the trajectories on the RMSD distances from the two reference states.](masterclass-21-6-rmsd-distances.png]
+![The black points are the configurations visited in MD simulations at 300K (left) and 1000K (right).  The top panel shows these trajectories in the Ramachandran plane.  In the lower panel, I have projected the trajectories on the RMSD distances from the two reference states.](masterclass-21-6-rmsd-distances.png)
 
 The black points above are the RMSD values for the trajectories.  I have also shown the RMSD values for the frames in
 alanine-transformation in red.  Notice that all the configurations explored in the MD are very distant from the C7ax and C7eq states.
@@ -668,8 +667,6 @@ from these two reference configurations were often considerably larger than the 
 
 Instead of calculating two distances, we might ask ourselves if the linear combination of \f$\phi\f$ and \f$\psi\f$ that is illustrated in the figure below:
 
-\anchor masterclass-21-6-pca-figure
-\image html marvel-2-pca-coordinates.png 
 ![An illustration showing how PCAVARS coordinates work.  The vector connecting some reference state to any state the system is in can be in (purple and orange points) can be projected onto the vector connecting the two states of interest (black arrow) by using the dot product of the vectors shown here.](marvel-2-pca-coordinates.png)
 
 gives a better description for the transition.  We can define this CV as follows:
@@ -701,9 +698,11 @@ $C_7ax$ states we can project our current coordinates on that particular vector.
 coordinates of the atoms.  In other words, if the 3$N$ coordinate of atomic positions is $\mathbf{x}^{(1)}$ for the $C_7eq$ 
 configuration and $\mathbf{x}^{(2)}$ for the $C_7ax$ configuration and if the instantaneous configuration of the atoms is $\mathbf{x}^{(3)}$ we 
 can use the following as a CV:
+
 $$
-s = \frac{\sum_{i=1}^{3N} (x^{(2)}_i - x^{(1)}_i ) (x^{(3)}_i - x^{(1)}_i )}{ \sqrt{\sum_{i=1}^{3N} (x^{(2)}_i - x^{(1)}_i )^2} }
+s = \frac{\sum_{i=1}^{3N} (x^{(2)}_i - x^{(1)}_i ) (x^{(3)}_i - x^{(1)}_i )}{ \sqrt{\sum_{i=1}^{3N} (x^{(2)}_i - x^{(1)}_i )^2} } 
 $$
+
 as long as rotational and translational movement is removed before calculating the two displacement vectors above. 
 
 We can also get some sense of how far the system has moved from this vector by computing:
@@ -711,6 +710,7 @@ We can also get some sense of how far the system has moved from this vector by c
 $$
 z = \sqrt{ \sum_{i=1}^{3N} (x^{(3)}_i - x^{(1)}_i)^2 - s^2 }
 $$
+
 which follows by applying Pythagoras theorem.
 
 You can calculate this collective variable using PLUMED by using the input below:
@@ -743,8 +743,6 @@ Notice that there are now three structures within `pca2-reference.pdb`, and thus
 The figure below shows the results that I obtained by analyzing the
 data using the PCAVARS command above.
 
-\anchor masterclass-21-6-pcavars2
-\image html masterclass-21-6-pcavars2.png "
 ![The black points are the configurations visited in MD simulations at 300K (left) and 1000K (right).  The top panel shows these trajectories in the Ramachandran plane.   The projection on the vectors defined using the configurations in pca2-reference.pdb is shown in the bottom panel.  The green points in the top panel give the Ramachandran angles for the configurations used to define the reference configurations.](masterclass-21-6-pcavars2.png)
 
 #### Path collective variables
@@ -796,6 +794,7 @@ impossible.  How, after all, can there be a single reaction path if we know that
 One way of answering this question is to look at how far the transitions you observe deviate from the reference transition path using the Z-coordinate.  An
 alternative answer can be found by considering so-called isocommittor surfaces.  When using this method, you suppose there is a
 saddle point between the two states of interest (the $C_7ax$ and $C_7eq$ configurations in our alanine dipeptide example).  
+
 Let's suppose that we now start a simulation with the system balanced precariously on this saddle point.  The system will, very-rapidly, fall off the maximum and move
 towards either the left or the right basin.  If we are exactly at the saddle, 50% of the trajectories will fall to the right, and 50% will fall to the left. 
 

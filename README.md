@@ -156,13 +156,12 @@ Plots showing the trajectory in CV space similar to those you generated at the e
 useful, however, is some way of understanding the relationship between the positions in CV space and the structures of the various atoms.
 In other words, what we would like is something like this:
 
-![A representation of the time against phi plot from the previous exercise that was generated using chemiscope.](masterclass-21-6-chemiscope.png)
+![A representation of the time against phi plot from the previous exercise that was generated using chemiscope.](figures/masterclass-21-6-chemiscope.png)
 
 You can see the frame in the trajectory that each point in the plot corresponds to from the above figure.  The snapshots on the right correspond to the structures the system
 had at the points highlighted in red, yellow, green and blue respectively in the plot on the left.  
 
-The figure above was generated using chemiscope.  
-This server allows you to generate and interact with plots like the one shown above.  __Your task in this exercise is to generate your own chemiscope representation
+The figure above was generated using chemiscope. This server allows you to generate and interact with plots like the one shown above.  __Your task in this exercise is to generate your own chemiscope representation
 of the data in traj.pdb.__  To create a chemiscope representation of the $\phi$ angles that we generated using the first python script from the previous exercise, you would 
 add the following python code:
 
@@ -583,15 +582,14 @@ By studying a system that is this simple, you will also hopefully come to unders
 
 To remind you, the free energy surface as a function of the $\phi$ and $\psi$ angles for alanine dipeptide is shown below:
 
-![The Free energy landscape of alanine dipeptide in Ramachandran angles in the CHARMM27 force field](belfast-2-rama.png)
+![The Free energy landscape of alanine dipeptide in Ramachandran angles in the CHARMM27 force field](figures/belfast-2-rama.png)
 
-In other masterclasses, we have discussed how there are two critical states in the above energy landscape.  These states are labelled C7eq and C7ax above.  
-The two Ramachandran angles plotted on the x and y axes of the free energy surface
+In other masterclasses, we have discussed how there are two critical states in the above energy landscape.  These states are labelled C7eq and C7ax above.  The two Ramachandran angles plotted on the x and y axes of the free energy surface
 above are examples of what we have called collective variables.  Both of these angles can be used to distinguish between C7eq and C7ax configurations.
 The reaction coordinate is the path that the system actually takes as it moves from the C7ax to the C7eq configuration.  Based on the shape of the free
 energy surface, we might suppose that this reaction  coordinate looks something like the black line shown below: 
 
-![Paths that connect the C7eq and C7ax configuration](belfast-2-good-bad-path.png) 
+![Paths that connect the C7eq and C7ax configuration](figures/belfast-2-good-bad-path.png) 
 
 The file called alanine-transformation.pdb that you can find in the data directory of the GitHub repository contains a series of configurations that lie close to the transition path that is illustrated in black in the figure above.  Below are plots that show how 
 $\phi$ and $\psi$ change as the system moves along this path.  __Try to see if you can use what you have learned in previous masterclasses to reproduce the figure above before continuing.__  
@@ -607,8 +605,8 @@ from the C7ax and C7eq configurations:
 
 ```plumed
 #SOLUTIONFILE=work/plumed_ex5.dat
-c7ax: RMSD __FILL__=../data/C7ax.pdb TYPE=__FILL__ 
-c7eq: RMSD __FILL__=../data/C7eq.pdb TYPE=__FILL__
+c7ax: RMSD __FILL__=../data/c7ax.pdb TYPE=__FILL__ 
+c7eq: RMSD __FILL__=../data/c7eq.pdb TYPE=__FILL__
 PRINT ARG=c7ax,c7eq FILE=colvar STRIDE=100
 ```
 
@@ -666,7 +664,7 @@ from these two reference configurations were often considerably larger than the 
 
 Instead of calculating two distances, we might ask ourselves if the linear combination of $\phi$ and $\psi$ that is illustrated in the figure below:
 
-![An illustration showing how PCAVARS coordinates work.  The vector connecting some reference state to any state the system is in can be in (purple and orange points) can be projected onto the vector connecting the two states of interest (black arrow) by using the dot product of the vectors shown here.](marvel-2-pca-coordinates.png)
+![An illustration showing how PCAVARS coordinates work.  The vector connecting some reference state to any state the system is in can be in (purple and orange points) can be projected onto the vector connecting the two states of interest (black arrow) by using the dot product of the vectors shown here.](figures/marvel-2-pca-coordinates.png)
 
 gives a better description for the transition.  We can define this CV as follows:
 
@@ -679,13 +677,11 @@ $(\phi_2,\psi_2)$ are the Ramachandran angles in the $C_7ax$.  $(\phi_3,\psi_3)$
 instantaneous configuration.  You should thus be able to see that we have arrived at the above expression
 by using our knowledge of the dot product between two vectors.
 
-__See if you can write an input to re-analyse the data in alanine-transformation.pdb and the MD simulations from the previous section using this CV.__  
-You should be able to get plots of the value of this CV as a function of step number that looks like the ones shown below:
+__See if you can write an input to re-analyse the data in alanine-transformation.pdb and the MD simulations from the previous section using this CV.__  You should be able to get plots of the value of this CV as a function of step number that looks like the ones shown below:
 
 ![The black points are the configurations visited in MD simulations at 300K (left) and 1000K (right).  The top panel shows these trajectories in the Ramachandran plane.  In the lower panel, I have projected the trajectories on vector in the Ramachandran plane shown above.](figures/masterclass-21-6-pcavars-transition.png)
 
-I implemented this CV using a combination of TORSION and COMBINE.  I also ignored the fact that the torsions are periodic variables when calculating the linear combination.  
-You can't use the sort of linear algebra above with periodic variables, but it is OK for these illustrative purposes.  
+I implemented this CV using a combination of TORSION and COMBINE.  I also ignored the fact that the torsions are periodic variables when calculating the linear combination. You can't use the sort of linear algebra above with periodic variables, but it is OK for these illustrative purposes.  
 
 Notice that the first frame in alanine-transformation.pdb has the molecule in the $C_7ax$ configuration.  The last frame has the molecule in the $C_7eq$ state.  
 
@@ -734,7 +730,7 @@ in the plane that contains three reference configurations.  You can calculate th
 
 ```plumed
 #SOLUTIONFILE=work/plumed_ex7.dat
-p: PCAVARS __FILL__=pca2-reference.pdb __FILL__=OPTIMAL
+p: PCAVARS __FILL__=../work/pca2-reference.pdb __FILL__=OPTIMAL
 PRINT ARG=p.* FILE=colvar
 ```
 
@@ -748,7 +744,7 @@ data using the PCAVARS command above.
 
 Instead of using the projection on more than one vector, we can extend the ideas in the previous section and use curvilinear paths rather than linear paths.  This trick is what is done with the PATH CVs that are illustrated in the figure below:
 
-![The S variable can be thought as the length of the red segment, while the Z variable is the length of the green one](belfast-2-ab-sz.png)
+![The S variable can be thought as the length of the red segment, while the Z variable is the length of the green one](figures/belfast-2-ab-sz.png)
 
 As you can see, there are two path collective variables, $S(X)$ measures your position on a path and is calculated using:
 
@@ -811,6 +807,7 @@ The PLUMED input that I used when making the figure above is a filled in version
 phi: TORSION __FILL__=5,7,9,15
 psi: TORSION __FILL__=7,9,15,17
 pca: PCAVARS __FILL__=../data/pca-reference.pdb TYPE=__FILL__
+path: PATH  __FILL__=../data/alanine-path.pdb TYPE=__FILL__ LAMBDA=15100
 PRINT __FILL__=phi,psi,pca.eig-1,path.spath FILE=colvar STRIDE=1
 __FILL__ ARG=phi STRIDE=1 BASIN_LL1=-3 BASIN_UL1=-1 BASIN_LL2=1 BASIN_UL2=2 FILE=basin
 ```
@@ -1087,6 +1084,4 @@ Run a metadynamics simulation using the distance from the protein's folded state
 These simulations may or may not give you the desired free energy difference.  You will at least get some trajectory data from them, however.  You can then analyze the trajectories using a machine learning
 algorithm or similar to refine your approach.  This refining stage is where the experience of your supervisor should be invaluable.
 
-With all this in mind, think about your research project.  Try to develop a research question to work on and an approach that you can use to tackle this question.  Your question should not be some grand challenge.  
-It should be something simple that you know how to do.  You do not need to run these simulations.  I want you to think about the research question to discuss them at the follow-up session.  I want you to think about how you 
-can use these methods in your research as if you are not doing so, attending these masterclasses is pointless as you will never really apply these methods.  
+With all this in mind, think about your research project.  Try to develop a research question to work on and an approach that you can use to tackle this question.  Your question should not be some grand challenge.  It should be something simple that you know how to do.  You do not need to run these simulations.  I want you to think about the research question to discuss them at the follow-up session.  I want you to think about how you can use these methods in your research as if you are not doing so, attending these masterclasses is pointless as you will never really apply these methods.  

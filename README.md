@@ -809,7 +809,7 @@ psi: TORSION __FILL__=7,9,15,17
 pca: PCAVARS __FILL__=../data/pca-reference.pdb TYPE=__FILL__
 path: PATH  __FILL__=../data/alanine-path.pdb TYPE=__FILL__ LAMBDA=15100
 PRINT __FILL__=phi,psi,pca.eig-1,path.spath FILE=colvar STRIDE=1
-__FILL__ ARG=phi STRIDE=1 BASIN_LL1=-3 BASIN_UL1=-1 BASIN_LL2=1 BASIN_UL2=2 FILE=basin
+COMMITTOR ARG=phi STRIDE=1 BASIN_LL1=-3 BASIN_UL1=-1 BASIN_LL2=1 BASIN_UL2=2 FILE=basin
 ```
 
 I deployed the input above within the following python script that launches a large number of gromacs simulations:

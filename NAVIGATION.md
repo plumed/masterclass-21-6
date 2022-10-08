@@ -47,5 +47,5 @@ flowchart LR;
   click J "notebooks/dimensionality-reduction-exercise-3.ipynb" "This python notebook contains a full set of solutions for the exercises on dimensionality reduction techniques"
   click K "notebooks/path-cvs-exercise-4.ipynb" "This python notebook contains a full set of solutions for the exercises on path collective variables"
   click L "notebooks/indistinguishability-ex-5.ipynb" "This python notebook contains a full set of solutions for the exercises on dealing with systems of indistiguishable particles"
-  click M "notebooks/create_startpoints.ipynb" "This python notebook shows how I generated a series of random startpoints for the isocommittor simulations that were used in the exercise on path CVs." 
+  click M "notebooks/create_startpoints.ipynb" "This python notebook shows how I generated a series of random startpoints for the isocommittor simulations that were used in the exercise on path CVs" 
 ```

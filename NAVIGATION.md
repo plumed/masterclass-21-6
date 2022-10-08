@@ -14,19 +14,27 @@ This lesson was the sixth masterclass in the 2021 series.  You will likely be ab
 flowchart LR;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
-  C -.-> D[Solutions]
+  subgraph Introduction
+  C --> D[Solutions]
+  end
   C --> E[Dimensionality reduction]
   C --> F[Path CVs]
-  F -.-> M[Generating startpoints]
-  M -.-> F
   C --> G[Indistinguishability]
   E --> H[Your research] 
   F --> H
   G --> H
   H ==> I[Lecture II]
+  subgraph Dimensionality reduction
   E --> J[Solutions]
+  end
+  subgraph Path CVs
   F --> K[Solutions]
+  F -.-> M[Generating startpoints]
+  M -.-> F
+  end
+  subgraph Indistinguishability
   G --> L[Solutions]
+  end
   click A "ref1" "This elementary lesson shows you how to install PLUMED and some basic and more advanced syntax. You will only need to complete up to exercise 1 of this earlier lesson to complete these exercises on dimensionality reduction"
   click B "video1" "A lecture that was given on April 12th 2021 as part of the plumed masterclass series that introduces you to the exercises in this lesson"
   click C "INSTRUCTIONS1.md" "Installation instructions followed by a discussion of how to run PLUMED from python direction and how to use chemiscope to visualize trajectories"

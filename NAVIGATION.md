@@ -15,22 +15,22 @@ flowchart LR;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
   subgraph one [Introduction]
-  C --> D[Solutions]
+  C -.-> D[Solutions]
   end
-  C --> E[Dimensionality reduction]
-  C --> F[Path CVs]
-  C --> G[Indistinguishability]
+  one --> E[Dimensionality reduction]
+  one --> F[Path CVs]
+  one --> G[Indistinguishability]
   H ==> I[Lecture II]
   subgraph two [Dimensionality reduction]
-  E --> J[Solutions]
+  E -.-> J[Solutions]
   end
   subgraph three [Path CVs]
-  F --> K[Solutions]
+  F -.-> K[Solutions]
   F -.-> M[Generating startpoints]
   M -.-> F
   end
   subgraph four [Indistinguishability]
-  G --> L[Solutions]
+  G -.-> L[Solutions]
   end
   two --> H[Your research] 
   three --> H

@@ -20,9 +20,6 @@ flowchart LR;
   C --> E[Dimensionality reduction]
   C --> F[Path CVs]
   C --> G[Indistinguishability]
-  E --> H[Your research] 
-  F --> H
-  G --> H
   H ==> I[Lecture II]
   subgraph two [Dimensionality reduction]
   E --> J[Solutions]
@@ -35,6 +32,9 @@ flowchart LR;
   subgraph four [Indistinguishability]
   G --> L[Solutions]
   end
+  two --> H[Your research] 
+  three --> H
+  four --> H
   click A "ref1" "This elementary lesson shows you how to install PLUMED and some basic and more advanced syntax. You will only need to complete up to exercise 1 of this earlier lesson to complete these exercises on dimensionality reduction"
   click B "video1" "A lecture that was given on April 12th 2021 as part of the plumed masterclass series that introduces you to the exercises in this lesson"
   click C "INSTRUCTIONS1.md" "Installation instructions followed by a discussion of how to run PLUMED from python direction and how to use chemiscope to visualize trajectories"

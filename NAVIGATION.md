@@ -14,7 +14,7 @@ This lesson was the sixth masterclass in the 2021 series.  You will likely be ab
 flowchart LR;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
-  subgraph Introduction
+  subgraph one [Introduction]
   C --> D[Solutions]
   end
   C --> E[Dimensionality reduction]
@@ -24,15 +24,15 @@ flowchart LR;
   F --> H
   G --> H
   H ==> I[Lecture II]
-  subgraph Dimensionality reduction
+  subgraph two [Dimensionality reduction]
   E --> J[Solutions]
   end
-  subgraph Path CVs
+  subgraph three [Path CVs]
   F --> K[Solutions]
   F -.-> M[Generating startpoints]
   M -.-> F
   end
-  subgraph Indistinguishability
+  subgraph four [Indistinguishability]
   G --> L[Solutions]
   end
   click A "ref1" "This elementary lesson shows you how to install PLUMED and some basic and more advanced syntax. You will only need to complete up to exercise 1 of this earlier lesson to complete these exercises on dimensionality reduction"

@@ -15,6 +15,7 @@ flowchart LR;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
   subgraph one [Introduction]
+  direction TB
   C -.-> D[Solutions]
   end
   one --> E[Dimensionality reduction]

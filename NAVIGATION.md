@@ -14,7 +14,7 @@ This lesson was the sixth masterclass in the 2021 series.  You will likely be ab
 flowchart LR;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
-  subgraph one
+  subgraph one [Introduction];
   direction TB
   C -.-> D[Solutions]
   end

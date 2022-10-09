@@ -14,7 +14,7 @@ This lesson was the sixth masterclass in the 2021 series.  You will likely be ab
 flowchart TB;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
-  subgraph one [""];
+  subgraph one [1];
   C -.-> D[Solutions]
   end
   one --> E[Dimensionality reduction]

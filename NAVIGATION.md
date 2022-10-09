@@ -14,22 +14,22 @@ This lesson was the sixth masterclass in the 2021 series.  You will likely be ab
 flowchart TB;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
-  subgraph one [];
+  subgraph one [""];
   C -.-> D[Solutions]
   end
   one --> E[Dimensionality reduction]
   one --> F[Path CVs]
   one --> G[Indistinguishability]
   H ==> I[Lecture II]
-  subgraph two []
+  subgraph two [2]
   E -.-> J[Solutions]
   end
-  subgraph three []
+  subgraph three [3]
   F -.-> K[Solutions]
   F -.-> M[Generating startpoints]
   M -.-> F
   end
-  subgraph four []
+  subgraph four [4]
   G -.-> L[Solutions]
   end
   two --> H[Your research] 

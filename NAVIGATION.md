@@ -11,7 +11,7 @@ The flow chart shown below indicates the order in which you should consult the r
 This lesson was the sixth masterclass in the 2021 series.  You will likely be able to complete the exercise without completing all the five masterclasses before this one in the series.  However, the first masterclass contains instructions for installing PLUMED using conda that you may need to consult if you have not installed it already.  
 
 ```mermaid
-flowchart LR;
+flowchart TB;
   A[PLUMED intro] -.-> B[Lecture I] 
   B ==> C[Getting started]
   subgraph one [Introduction];

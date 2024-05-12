@@ -53,7 +53,7 @@ MOLINFO STRUCTURE=__FILL__ MOLTYPE=protein
 cc: COLLECT_FRAMES __FILL__=@nonhydrogens
 
 # This should output the atomic positions for the frames that were collected to a pdb file called traj.pdb
-OUTPUT_ANALYSIS_DATA_TO_PDB USE_OUTPUT_DATA_FROM=__FILL__ FILE=traj.pdb
+DUMPPDB ATOMS=cc_data ATOM_INDICES=@nonhydrogens FILE=traj.pdb
 ```
 
 __Copy the input above into a plumed file and fill in the blanks.__  You should then be able to run the command using:
@@ -88,14 +88,11 @@ MOLINFO STRUCTURE=__FILL__ MOLTYPE=protein
 
 # This stores the positions of all the nonhydrogen atoms for later analysis
 cc: COLLECT_FRAMES __FILL__=@nonhydrogens
-# This diagonalizes the covariance matrix
-pca: PCA USE_OUTPUT_DATA_FROM=__FILL__ METRIC=OPTIMAL NLOW_DIM=2
-# This projects each of the trajectory frames onto the low dimensional space that was
-# identified by the PCA command
-dat: PROJECT_ALL_ANALYSIS_DATA USE_OUTPUT_DATA_FROM=__FILL__ PROJECTION=__FILL__
-
-# This should output the PCA projections of all the coordinates
-OUTPUT_ANALYSIS_DATA_TO_COLVAR USE_OUTPUT_DATA_FROM=__FILL__ ARG=dat.* FILE=pca_data
+# This computes and diagonalizes the covariance matrix and projects each of the input coordinates into the low dimensional space
+# The output file here contains details of the eigenvectors that were obtained
+pca: PCA ARG=__FILL__ NLOW_DIM=2 FILE=pca_proj.pdb
+# This will output the PCA projections of all the coordinates
+DUMPVECTOR ARG=__FILL__ FILE=pca_data
 
 # These next three commands calculate the secondary structure variables.  These
 # variables measure how much of the structure resembles an alpha helix, an antiparallel beta-sheet
@@ -108,7 +105,7 @@ pbeta: PARABETARMSD RESIDUES=all STRANDS_CUTOFF=1.0
 # These commands collect and output the secondary structure variables so that we can use this information to
 # determine how good our projection of the trajectory data is.
 cc2: COLLECT_FRAMES ARG=alpha,abeta,pbeta
-OUTPUT_ANALYSIS_DATA_TO_COLVAR USE_OUTPUT_DATA_FROM=cc2 ARG=cc2.* FILE=secondary_structure_data
+DUMPVECTOR ARG=cc2_data FILE=secondary_structure_data
 ```
 
 To generate the projection, you run the command:
@@ -243,17 +240,15 @@ r16-psi: TORSION __FILL__
 
 # This command stores all the Ramachandran angles that were computed
 angles: COLLECT_FRAMES __FILL__=r2-phi,r2-psi,r3-phi,r3-psi,r4-phi,r4-psi,r5-phi,r5-psi,r6-phi,r6-psi,r7-phi,r7-psi,r8-phi,r8-psi,r9-phi,r9-psi,r10-phi,r10-psi,r11-phi,r11-psi,r12-phi,r12-psi,r13-phi,r13-psi,r14-phi,r14-psi,r15-phi,r15-psi,r16-phi,r16-psi
-# Lets now compute the matrix of distances between the frames in the space of the Ramachandran angles
-distmat: EUCLIDEAN_DISSIMILARITIES USE_OUTPUT_DATA_FROM=__FILL__ METRIC=EUCLIDEAN
 # Now select 500 landmark points to analyze
-fps: LANDMARK_SELECT_FPS USE_OUTPUT_DATA_FROM=__FILL__ NLANDMARKS=500
+fps: LANDMARK_SELECT_FPS ARG=__FILL__ NLANDMARKS=500
 # Run MDS on the landmarks
 mds: CLASSICAL_MDS __FILL__=fps NLOW_DIM=2
 # Project the remaining trajectory data
-osample: PROJECT_ALL_ANALYSIS_DATA USE_OUTPUT_DATA_FROM=__FILL__ PROJECTION=__FILL__
+osample: PROJECT_POINTS ARG=__FILL__ TARGET1=fps_rectdissims FUNC1={CUSTOM R_0=1 FUNC=sqrt(x)} WEIGHTS1=fps_weights
 
 # This command outputs all the projections of all the points in the low dimensional space
-OUTPUT_ANALYSIS_DATA_TO_COLVAR USE_OUTPUT_DATA_FROM=__FILL__ ARG=osample.* FILE=mds_data
+DUMPVECTOR ARG=__FILL__ FILE=mds_data
 
 # These next three commands calculate the secondary structure variables.  These
 # variables measure how much of the structure resembles an alpha helix, an antiparallel beta-sheet
@@ -266,12 +261,12 @@ pbeta: PARABETARMSD RESIDUES=all STRANDS_CUTOFF=1.0
 # These commands collect and output the secondary structure variables so that we can use this information to
 # determine how good our projection of the trajectory data is.
 cc2: COLLECT_FRAMES ARG=alpha,abeta,pbeta
-OUTPUT_ANALYSIS_DATA_TO_COLVAR USE_OUTPUT_DATA_FROM=cc2 ARG=cc2.* FILE=secondary_structure_data
+DUMPVECTOR ARG=cc2_data FILE=secondary_structure_data
 ```
 
 This input collects all the torsional angles for the configurations in the trajectory.  Then, at the end of the calculation, the matrix of distances between these points is computed, and a set of landmark points
 is selected using a method known as farthest point sampling.  A matrix that contains only those distances between the landmarks is then constructed and diagonalized by the CLASSICAL_MDS action so that
-projections of the landmarks can be built.  The final step is then to project the remainder of the trajectory using the PROJECT_ALL_ANALYSIS_DATA action.  Try to fill in the blanks in the input above
+projections of the landmarks can be built.  The final step is then to project the remainder of the trajectory using the PROJECT_POINTS action.  Try to fill in the blanks in the input above
 and run this calculation now using the command:
 
 ````
@@ -301,7 +296,7 @@ MOLINFO STRUCTURE=__FILL__ MOLTYPE=protein
 # This stores the positions of all the nonhydrogen atoms for later analysis
 cc: COLLECT_FRAMES __FILL__=@nonhydrogens
 # This should output the atomic positions for the frames that were collected and analyzed using MDS
-OUTPUT_ANALYSIS_DATA_TO_PDB USE_OUTPUT_DATA_FROM=__FILL__ FILE=traj.pdb
+DUMPPDB __FILL__=cc_data ATOM_INDICES=__FILL__ FILE=traj.pdb
 
 # The following commands compute all the Ramachandran angles of the protein for you
 r2-phi: TORSION ATOMS=@phi-2
@@ -337,17 +332,13 @@ r16-psi: TORSION __FILL__
 
 # This command stores all the Ramachandran angles that were computed
 angles: COLLECT_FRAMES __FILL__=r2-phi,r2-psi,r3-phi,r3-psi,r4-phi,r4-psi,r5-phi,r5-psi,r6-phi,r6-psi,r7-phi,r7-psi,r8-phi,r8-psi,r9-phi,r9-psi,r10-phi,r10-psi,r11-phi,r11-psi,r12-phi,r12-psi,r13-phi,r13-psi,r14-phi,r14-psi,r15-phi,r15-psi,r16-phi,r16-psi
-# Lets now compute the matrix of distances between the frames in the space of the Ramachandran angles
-distmat: EUCLIDEAN_DISSIMILARITIES USE_OUTPUT_DATA_FROM=__FILL__ METRIC=EUCLIDEAN
 # Now select 500 landmark points to analyze
-fps: LANDMARK_SELECT_FPS USE_OUTPUT_DATA_FROM=__FILL__ NLANDMARKS=500
+fps: LANDMARK_SELECT_FPS ARG=__FILL__ NLANDMARKS=500
 # Run sketch-map on the landmarks
-smap: SKETCH_MAP __FILL__=fps NLOW_DIM=2 HIGH_DIM_FUNCTION={SMAP R_0=6 A=8 B=2} LOW_DIM_FUNCTION={SMAP R_0=6 A=2 B=2} CGTOL=1E-3 CGRID_SIZE=20 FGRID_SIZE=200 ANNEAL_STEPS=0
-# Project the remaining trajectory data
-osample: PROJECT_ALL_ANALYSIS_DATA USE_OUTPUT_DATA_FROM=__FILL__ PROJECTION=__FILL__
+smap: SKETCHMAP __FILL__=fps NLOW_DIM=2 PROJECT_ALL HIGH_DIM_FUNCTION={SMAP R_0=6 A=8 B=2} LOW_DIM_FUNCTION={SMAP R_0=6 A=2 B=2} CGTOL=1E-3 NCYCLES=3 CGRID_SIZE=20,20 FGRID_SIZE=200,200 
 
 # This command outputs all the projections of all the points in the low dimensional space
-OUTPUT_ANALYSIS_DATA_TO_COLVAR USE_OUTPUT_DATA_FROM=__FILL__ ARG=osample.* FILE=smap_data
+DUMPVECTOR __FILL__=smap_osample.coord-1,smap_osample.coord-2 ARG=osample.* FILE=smap_data
 
 # These next three commands calculate the secondary structure variables.  These
 # variables measure how much of the structure resembles an alpha helix, an antiparallel beta-sheet
@@ -360,14 +351,14 @@ pbeta: PARABETARMSD RESIDUES=all STRANDS_CUTOFF=1.0
 # These commands collect and output the secondary structure variables so that we can use this information to
 # determine how good our projection of the trajectory data is.
 cc2: COLLECT_FRAMES ARG=alpha,abeta,pbeta
-OUTPUT_ANALYSIS_DATA_TO_COLVAR USE_OUTPUT_DATA_FROM=cc2 ARG=cc2.* FILE=secondary_structure_data
+DUMPVECTOR ARG=cc2_data FILE=secondary_structure_data
 ```
 
 This input collects all the torsional angles for the configurations in the trajectory.  Then, at the end of the calculation, the matrix of distances between these points is computed, and a set of landmark points
 is selected using a method known as farthest point sampling.  A matrix that contains only those distances between the landmarks is then constructed and diagonalized by the CLASSICAL_MDS action, and this
 set of projections is used as the initial configuration for the various minimization algorithms that are then used to optimize the sketch-map stress function.  As in the previous exercise, once the projections of
-the landmarks are found, the projections for the remainder of the points in the trajectory are found by using the PROJECT_ALL_ANALYSIS_DATA action.  Try to fill in the blanks in the input above
-and run this calculation now using the command:
+the landmarks are found, the projections for the remainder of the points in the trajectory are found by using the PROJECT_POINTS action.  This is managed by the SKETCHMAP shortcut action, however.  
+Try to fill in the blanks in the input above and run this calculation now using the command:
 
 ````
 plumed driver --mf_pdb traj.pdb
@@ -386,9 +377,8 @@ This exercise has shown you that running dimensionality reduction algorithms usi
 
 - Data is collected from the trajectory using [COLLECT_FRAMES](https://www.plumed.org/doc-master/user-doc/html/_c_o_l_l_e_c_t__f_r_a_m_e_s.html).
 - Landmark points are selected using a [landmarks algorithm](https://www.plumed.org/doc-master/user-doc/html/_analysis.html#landmarks)
-- The distances between the trajectory frames are computed using [EUCLIDEAN_DISSIMILARITIES](https://www.plumed.org/doc-master/user-doc/html/_e_u_c_l_i_d_e_a_n__d_i_s_s_i_m_i_l_a_r_i_t_i_e_s.html)
 - A loss function is optimized to generate projections of the landmarks.
-- Projections of the non-landmark points are found using [PROJECT_ALL_ANALYSIS_DATA](https://www.plumed.org/doc-master/user-doc/html/_p_r_o_j_e_c_t__a_l_l__a_n_a_l_y_s_i_s__d_a_t_a.html).
+- Projections of the non-landmark points are found 
 
 There are multiple choices to be made in each of the various stages described above.  For example, you can change the particular sort of data this is collected from the
 trajectory. There are multiple different ways to select landmarks. You can use the distances directly, or you can transform them. You can use various loss functions and

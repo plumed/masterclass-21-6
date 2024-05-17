@@ -338,7 +338,7 @@ fps: LANDMARK_SELECT_FPS ARG=__FILL__ NLANDMARKS=500
 smap: SKETCHMAP __FILL__=fps NLOW_DIM=2 PROJECT_ALL HIGH_DIM_FUNCTION={SMAP R_0=6 A=8 B=2} LOW_DIM_FUNCTION={SMAP R_0=6 A=2 B=2} CGTOL=1E-3 NCYCLES=3 CGRID_SIZE=20,20 FGRID_SIZE=200,200 
 
 # This command outputs all the projections of all the points in the low dimensional space
-DUMPVECTOR __FILL__=smap_osample.coord-1,smap_osample.coord-2 ARG=osample.* FILE=smap_data
+DUMPVECTOR __FILL__=smap_osample ARG=osample.* FILE=smap_data
 
 # These next three commands calculate the secondary structure variables.  These
 # variables measure how much of the structure resembles an alpha helix, an antiparallel beta-sheet

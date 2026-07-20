@@ -42,7 +42,7 @@ are in the solid state from atoms that are in the liquid state.  The following i
 #SOLUTIONFILE=work/plumed_ex10.dat
 UNITS NATURAL
 coord: COORDINATIONNUMBER __FILL__=1-5184 SWITCH={CUBIC D_0=1.2 D_MAX=1.5} 
-cub: FCCUBIC __FILL__=1-5184 __FILL__={CUBIC D_0=1.2 D_MAX=1.5} ALPHA=27
+cub: FCCUBIC __FILL__=1-5184 SWITCH={CUBIC D_0=1.2 D_MAX=1.5} ALPHA=27
 fcub: MORE_THAN ARG=__FILL__ SWITCH={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
 fcub_grp: GROUP ATOMS=cub
 DUMPMULTICOLVAR __FILL__=coord STRIDE=1000 __FILL__=coord.xyz
@@ -148,7 +148,7 @@ Once we have identified an order parameter we can analyse the distribution of va
 #SOLUTIONFILE=work/plumed_ex11.dat
 UNITS NATURAL
 coord: COORDINATIONNUMBER __FILL__=1-5184 SWITCH={CUBIC D_0=1.2 D_MAX=1.5} 
-cub: FCCUBIC __FILL__=1-5184 __FILL__={CUBIC D_0=1.2 D_MAX=1.5} ALPHA=27
+cub: FCCUBIC __FILL__=1-5184 SWITCH={CUBIC D_0=1.2 D_MAX=1.5} ALPHA=27
 fcub: MORE_THAN ARG=__FILL__ SWITCH={SMAP R_0=0.45 D_0=0.0 A=8 B=8}
 fcub_grp: GROUP ATOMS=cub
 coord_histo: HISTOGRAM __FILL__=coord STRIDE=10 __FILL__=2 GRID_MAX=15 __FILL__=100 __FILL__=DISCRETE
